@@ -46,7 +46,7 @@ const renderNewMovieElement = (id, title, imageUrl, rating) => {
             <p>${rating}/5 stars</p>
           </div>
         `;
-  newMovieElement.addEventListener("click", deleteMovieHandler.bind(null, Id));
+  newMovieElement.addEventListener("click", deleteMovieHandler.bind(null, id));
 
   const listRoot = document.getElementById("movie-list");
   listRoot.append(newMovieElement);
@@ -108,7 +108,6 @@ const addMovieHandler = () => {
     newMovie.image,
     newMovie.rating
   );
-  
 };
 
 // backdrop click handler
