@@ -35,6 +35,12 @@ const deleteMovie = (movieId) => {
   listRoot.children[movieIndex].remove();
 };
 
+
+const closeMovieDeletionModal = () => {
+  deleteMovieModal.classList.remove("visible");
+  toggleBackdrop();
+}
+
 const deleteMovieHandler = (movieId) => {
   
   deleteMovieModal.classList.add("visible");
@@ -113,6 +119,7 @@ const addMovieHandler = () => {
   movies.push(newMovie);
   console.log(movies);
   closeMovieModal();
+  toggleBackdrop();
   clearMovieInput();
   updateUI();
   renderNewMovieElement(
@@ -126,6 +133,7 @@ const addMovieHandler = () => {
 // backdrop click handler
 const backdropClickHandler = () => {
   closeMovieModal();
+  closeMovieDeletionModal();
 };
 
 startAddMovieButton.addEventListener("click", showMovieModal);
