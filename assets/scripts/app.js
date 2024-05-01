@@ -14,12 +14,21 @@ const deleteMovieModal = document.getElementById("delete-modal");
 // storing the movies
 const movies = [];
 
+const toggleBackdrop = () => {
+  backdrop.classList.toggle("visible");
+};
+
 const updateUI = () => {
   if (movies.length === 0) {
     entryTextSection.style.display = "block";
   } else {
     entryTextSection.style.display = "none";
   }
+};
+
+const closeMovieDeletionModal = () => {
+  deleteMovieModal.classList.remove("visible");
+  toggleBackdrop();
 };
 
 const deleteMovieHandler = (movieId) => {
@@ -33,12 +42,10 @@ const deleteMovieHandler = (movieId) => {
   movies.splice(movieIndex, 1);
   const listRoot = document.getElementById("movie-list");
   listRoot.children[movieIndex].remove();
+  closeMovieDeletionModal();
 };
 
-const closeMovieDeletionModal = () => {
-  deleteMovieModal.classList.remove("visible");
-  toggleBackdrop();
-};
+
 
 const startDeleteMovieHandler = (movieId) => {
   deleteMovieModal.classList.add("visible");
@@ -47,11 +54,10 @@ const startDeleteMovieHandler = (movieId) => {
   const cancleDeletionButton = deleteMovieModal.querySelector(".btn--danger");
   const confirmDeletionButton = deleteMovieModal.querySelector(".btn--passive");
 
-  cancleDeletionButton.addEventListener("click", closeMovieDeletionModal);
-  confirmDeletionButton.addEventListener(
-    "click",
-    deleteMovieHandler.bind(null, movieId)
-  );
+ //confirmDeletionButton.removeEventListener('click', deleteMovieHandler )
+ cancleDeletionButton.addEventListener("click", closeMovieDeletionModal);
+
+  confirmDeletionButton.addEventListener("click",deleteMovieHandler.bind(null, movieId));
 };
 
 const renderNewMovieElement = (id, title, imageUrl, rating) => {
@@ -75,9 +81,7 @@ const renderNewMovieElement = (id, title, imageUrl, rating) => {
   listRoot.append(newMovieElement);
 };
 
-const toggleBackdrop = () => {
-  backdrop.classList.toggle("visible");
-};
+
 
 const closeMovieModal = () => {
   addMovieModal.classList.remove("visible");
@@ -98,6 +102,7 @@ const clearMovieInput = () => {
 // cancle add movie handler
 const cancleAddMovieHandler = () => {
   closeMovieModal();
+  toggleBackdrop();
   clearMovieInput();
 };
 
